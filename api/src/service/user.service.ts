@@ -1,4 +1,3 @@
-
 import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 
@@ -13,6 +12,15 @@ export const createUser = async (userData: User) => {
         data: data
     });
 
-    return user;
+    return { ...user, password: undefined };
 }
 
+export const getUser = async (userId: string) => { 
+    const user = await prismaClient.user.findFirst({
+        where: {
+            id: userId
+        }
+    });
+
+    return { ...user, password: undefined };
+};
