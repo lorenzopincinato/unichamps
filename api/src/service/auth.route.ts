@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+import { getJwtSecret } from '../io/environment';
+
 import { prismaClient } from '../utils/prisma';
 
 export const authUser = async (email: string, password: string) => {
@@ -16,7 +18,7 @@ export const authUser = async (email: string, password: string) => {
                 id: user.id, 
                 name: user.name, 
                 email: user.email 
-            }, process.env.JWT_SECRET);
+            }, getJwtSecret());
         }
     }
 }
