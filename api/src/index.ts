@@ -1,12 +1,12 @@
-import express from 'express';
+import express, { json } from 'express';
+import routes from './routes';
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
-app.get('/', (req, res) => {
-    res.send('success'); 
-})
+app.use(json())
+app.use(routes);
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log(`App started on port: ${port}`)
 })
