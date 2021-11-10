@@ -1,28 +1,27 @@
 import { FC } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-
-import Layout from './components/layout/Layout.component';
-import GlobalStyle from './themes/GlobalStyle';
-import lightTheme from './themes/light.theme';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 
 import Redirect404View from './views/404/Redirect404.view';
-import IndexView from './views/index/Index.view';
+import LoginView from './views/login/Login.view';
 
 const Routes: FC = () => {
   return (
-    <ThemeProvider theme={lightTheme}>
-      <GlobalStyle />
-      <Router>
-        <Layout>
-          <Switch>
-            <Route exact path="/" component={IndexView} />
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
 
-            <Route component={Redirect404View} />
-          </Switch>
-        </Layout>
-      </Router>
-    </ThemeProvider>
+        <Route exact path="/login" component={LoginView} />
+
+        <Route component={Redirect404View} />
+      </Switch>
+    </Router>
   );
 };
 
