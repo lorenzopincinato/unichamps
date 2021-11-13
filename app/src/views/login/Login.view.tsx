@@ -3,10 +3,19 @@ import { FC, useCallback, useState } from 'react';
 import {
   Button,
   Container,
+  Flex,
   FormControl,
   FormLabel,
+  Heading,
   Input,
+  Text,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import api from 'src/io/api';
+
+interface AuthResponse {
+  token: string;
+}
 
 const LoginView: FC = () => {
   const [email, setEmail] = useState('');
@@ -28,19 +37,45 @@ const LoginView: FC = () => {
     []
   );
 
-  const handleSubmit = useCallback(e => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async e => {
+      e.preventDefault();
+      setIsSubmitting(true);
 
-    setIsSubmitting(true);
-    setError('erro');
-    console.log(e);
-  }, []);
+      try {
+        const response = await api.post('/auth', {
+          email: email,
+          password: password,
+        });
+
+        const { token } = response.data as unknown as AuthResponse;
+
+        if (!token) {
+          throw new Error('No token');
+        }
+
+        localStorage.setItem('token', token);
+        window.location.href = '/';
+      } catch (error) {
+        setError('Email e/ou senha incorreto(s), verifique e tente novamente!');
+        setPassword('');
+      }
+
+      setIsSubmitting(false);
+    },
+    [email, password, setPassword]
+  );
 
   return (
-    <Container>
-      UniChamps
+    <Container mt={24}>
+      <Container centerContent>
+        <img src="logo.png" width="142px" height="142px" />
+        <Heading mt={3} color={'#276749'}>
+          UniChamps
+        </Heading>
+      </Container>
       <form onSubmit={handleSubmit}>
-        <FormControl>
+        <FormControl mt={8}>
           <FormLabel htmlFor="email">Email</FormLabel>
           <Input
             id="email"
@@ -60,7 +95,6 @@ const LoginView: FC = () => {
             onChange={handlePasswordChange}
           />
         </FormControl>
-        {error && <div>{error}</div>}
         <Button
           mt={4}
           w="100%"
@@ -70,7 +104,22 @@ const LoginView: FC = () => {
         >
           Entrar
         </Button>
+        {error && (
+          <Container mt={4} centerContent>
+            {error}
+          </Container>
+        )}
       </form>
+      <Flex mt={4} justifyContent="center">
+        <Text color={'#4A5568'} mr="2">
+          Não possui uma conta?
+        </Text>{' '}
+        <Link to="/register">
+          <Text color={'#4A5568'} fontWeight="700">
+            Registrar-se
+          </Text>
+        </Link>
+      </Flex>
     </Container>
   );
 };

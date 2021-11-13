@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import Redirect404View from './views/404/Redirect404.view';
+import HomeView from './views/home/Home.view';
 import LoginView from './views/login/Login.view';
 
 const Routes: FC = () => {
@@ -14,10 +15,16 @@ const Routes: FC = () => {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Redirect to="/login" />
+          {localStorage.getItem('token') ? (
+            <HomeView />
+          ) : (
+            <Redirect to="/login" />
+          )}
         </Route>
 
-        <Route exact path="/login" component={LoginView} />
+        <Route exact path="/login">
+          {localStorage.getItem('token') ? <Redirect to="/" /> : <LoginView />}
+        </Route>
 
         <Route component={Redirect404View} />
       </Switch>
