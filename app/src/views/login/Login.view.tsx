@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback } from 'react';
 
 import {
   Button,
@@ -11,17 +11,12 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import api from 'src/io/api';
 
-interface AuthResponse {
-  token: string;
-}
+import useLogin from 'src/hooks/login.hook';
 
 const LoginView: FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const { email, password, isLoading, error, setEmail, setPassword, login } =
+    useLogin();
 
   const handleEmailChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,30 +35,9 @@ const LoginView: FC = () => {
   const handleSubmit = useCallback(
     async e => {
       e.preventDefault();
-      setIsSubmitting(true);
-
-      try {
-        const response = await api.post('/auth', {
-          email: email,
-          password: password,
-        });
-
-        const { token } = response.data as unknown as AuthResponse;
-
-        if (!token) {
-          throw new Error('No token');
-        }
-
-        localStorage.setItem('token', token);
-        window.location.href = '/';
-      } catch (error) {
-        setError('Email e/ou senha incorreto(s), verifique e tente novamente!');
-        setPassword('');
-      }
-
-      setIsSubmitting(false);
+      login();
     },
-    [email, password, setPassword]
+    [login]
   );
 
   return (
@@ -99,7 +73,7 @@ const LoginView: FC = () => {
           mt={4}
           w="100%"
           colorScheme="green"
-          isLoading={isSubmitting}
+          isLoading={isLoading}
           type="submit"
         >
           Entrar
