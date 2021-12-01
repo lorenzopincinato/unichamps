@@ -9,7 +9,7 @@ type PublicRouteProps = {
 const PublicRoute: FC<PublicRouteProps> = ({ exact, path, children }) => {
   return (
     <Route exact={exact} path={path}>
-      {localStorage.getItem('token') ? <Redirect to="/login" /> : children}
+      {localStorage.getItem('token') ? <Redirect to="/" /> : children}
     </Route>
   );
 };

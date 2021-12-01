@@ -1,5 +1,10 @@
 import { useCallback, useState } from 'react';
-import loginUser from 'src/io/services/loginUser.service';
+import api from 'src/io/api';
+import { setToken } from 'src/io/localStorage';
+
+interface AuthResponse {
+  token: string;
+}
 
 const useLogin = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +16,20 @@ const useLogin = () => {
     setIsLoading(true);
 
     try {
-      loginUser({ email, password });
+      const response = await api.post('/auth', {
+        email: email,
+        password: password,
+      });
+
+      const { token } = response.data as unknown as AuthResponse;
+
+      if (!token) {
+        throw new Error();
+      }
+
+      setToken(token);
+
+      window.location.href = '/';
     } catch (error) {
       setError('Email e/ou senha incorreto(s), verifique e tente novamente!');
       setPassword('');

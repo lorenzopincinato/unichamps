@@ -21,7 +21,7 @@ const Routes: FC = () => {
           <LoginView />
         </PublicRoute>
 
-        <PublicRoute exact path="/register">
+        <PublicRoute path="/register">
           <RegisterView />
         </PublicRoute>
 

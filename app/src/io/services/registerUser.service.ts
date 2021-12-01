@@ -3,6 +3,7 @@ import { setToken } from '../localStorage';
 import IService from './IService';
 
 type UserCredentials = {
+  name: string;
   email: string;
   password: string;
 };
@@ -11,13 +12,14 @@ interface AuthResponse {
   token: string;
 }
 
-const loginUser: IService<UserCredentials, void> = async (
-  { email, password },
+const registerUser: IService<UserCredentials, void> = async (
+  { name, email, password },
   cancelToken
 ) => {
   const response = await api.post(
-    '/auth',
+    '/user',
     {
+      name: name,
       email: email,
       password: password,
     },
@@ -33,4 +35,4 @@ const loginUser: IService<UserCredentials, void> = async (
   setToken(token);
 };
 
-export default loginUser;
+export default registerUser;
