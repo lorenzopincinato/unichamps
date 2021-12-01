@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import api from 'src/io/api';
 
 const useRegister = () => {
   const [name, setName] = useState('');
@@ -22,23 +23,36 @@ const useRegister = () => {
       name !== undefined &&
       name !== '' &&
       email !== null &&
-      name !== undefined &&
-      name !== '' &&
+      email !== undefined &&
+      email !== '' &&
       isPasswordValid
     );
-  }, []);
+  }, [name, email, isPasswordValid]);
 
   const register = useCallback(async () => {
     setIsLoading(true);
 
     try {
-      //   registerUser({ name, email, password });
+      const response = await api.post('/users', {
+        name: name,
+        email: email,
+        password: password,
+      });
+
+      if (response.status !== 200) {
+        // TODO: Tratar os erros
+        throw new Error();
+      }
+
+      window.location.href = '/';
     } catch (error) {
-      setError('');
+      setError(
+        'Erro ao registrar novo usuário, tente novamente com outro e-mail.'
+      );
     }
 
     setIsLoading(false);
-  }, []);
+  }, [name, email, password, passwordConfirmation]);
 
   return {
     name,

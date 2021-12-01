@@ -20,7 +20,7 @@ const RegisterView: FC = () => {
     email,
     password,
     passwordConfirmation,
-    // isPasswordValid,
+    isPasswordValid,
     isValid,
     isLoading,
     error,
@@ -121,14 +121,14 @@ const RegisterView: FC = () => {
           w="100%"
           colorScheme="green"
           isLoading={isLoading}
-          isDisabled={isValid}
+          isDisabled={!isValid}
           type="submit"
         >
           Registrar
         </Button>
-        {error && (
+        {(error || !isPasswordValid) && (
           <Container mt={4} centerContent>
-            {error}
+            {error ? error : 'A senha deve ser igual a confirmação!'}
           </Container>
         )}
       </form>
