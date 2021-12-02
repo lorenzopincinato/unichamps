@@ -13,7 +13,8 @@ const useRegister = () => {
     return (
       password === passwordConfirmation &&
       password !== null &&
-      password !== undefined
+      password !== undefined &&
+      password !== ''
     );
   }, [password, passwordConfirmation]);
 

@@ -136,7 +136,7 @@ const RegisterView: FC = () => {
         <Text color={'#4A5568'} mr="2">
           Já possui uma conta?
         </Text>{' '}
-        <Link to="/register">
+        <Link to="/login">
           <Text color={'#4A5568'} fontWeight="700">
             Entrar
           </Text>
