@@ -19,7 +19,7 @@ router.post('/', async (req: CustomRequest, res) => {
     }
 });
 
-router.get('/', authorizationMiddleware, async (req: CustomRequest, res) => {
+router.get('/',authorizationMiddleware, async (req: CustomRequest, res) => {
     try {
         const teams = await getTeams();
 
