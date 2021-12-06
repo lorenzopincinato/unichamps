@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import api from 'src/io/api';
-import { setToken } from 'src/io/localStorage';
+import { clearToken, setToken } from 'src/io/localStorage';
 
 interface AuthResponse {
   token: string;
@@ -38,6 +38,11 @@ const useLogin = () => {
     setIsLoading(false);
   }, [email, password, setPassword]);
 
+  const logout = useCallback(() => {
+    clearToken();
+    window.location.href = '/login';
+  }, []);
+
   return {
     email,
     password,
@@ -47,6 +52,7 @@ const useLogin = () => {
     setEmail,
     setPassword,
     login,
+    logout,
   };
 };
 
