@@ -1,4 +1,4 @@
-import { Team, User } from '@prisma/client';
+import { Team } from '@prisma/client';
 
 import { prismaClient } from '../utils/prisma';
 
