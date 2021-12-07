@@ -12,33 +12,61 @@ datasource db {
 }
 
 model User {
-  id                  String        @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  email               String        @unique
-  name                String
-  password            String
-  ownedTeams          Team[]        @relation(name: "ownedTeams")
-  ownedTeamsIds       String[]      @db.Array(ObjectId)
-  ownedTournaments    Tournament[]  @relation(name: "ownedTournaments")
-  ownedTournamentIds  String[]      @db.Array(ObjectId)
-  teams               Team[]        @relation(name: "teams", fields: [teamsIds])
-  teamsIds            String[]      @db.Array(ObjectId)
+  id                 String       @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  email              String       @unique
+  name               String
+  password           String
+  ownedTeams         Team[]       @relation(name: "ownedTeams")
+  ownedTeamsIds      String[]     @db.Array(ObjectId)
+  ownedTournaments   Tournament[] @relation(name: "ownedTournaments")
+  ownedTournamentIds String[]     @db.Array(ObjectId)
+  teams              Team[]       @relation(name: "teams", fields: [teamsIds])
+  teamsIds           String[]     @db.Array(ObjectId)
 }
 
 model Team {
-  id          String        @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  name        String
-  owner       User          @relation(fields: [ownerId], references: [id], name: "ownedTeams")
-  ownerId     String        @db.ObjectId
-  players     User[]        @relation(name: "teams", fields: [playersId])
-  playersId   String[]      @db.Array(ObjectId)
-  tournaments Tournament[]
+  id              String       @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name            String
+  owner           User         @relation(fields: [ownerId], references: [id], name: "ownedTeams")
+  ownerId         String       @db.ObjectId
+  players         User[]       @relation(name: "teams", fields: [playersId])
+  playersId       String[]     @db.Array(ObjectId)
+  tournaments     Tournament[]
+  homeMatches     Match[]      @relation(name: "homeMatches")
+  visitingMatches Match[]      @relation(name: "visitingMatches")
+  winningMatches  Match[]      @relation(name: "winningMatches")
+}
+
+model Match {
+  id                String     @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  homeTeam          Team?       @relation(fields: [homeTeamId], references: [id], name: "homeMatches")
+  homeTeamId        String?     @db.ObjectId
+  visitingTeam      Team?       @relation(fields: [visitingTeamId], references: [id], name: "visitingMatches")
+  visitingTeamId    String?     @db.ObjectId
+  homeTeamGoals     Int?
+  visitingTeamGoals Int?
+  winner            Team?       @relation(fields: [winnerId], references: [id], name: "winningMatches")
+  winnerId          String?     @db.ObjectId
+  tournament        Tournament @relation(fields: [tournamentId], references: [id], name: "tournamentMatches")
+  tournamentId      String     @db.ObjectId
+  type              MatchType
+  nextMatchId       String? @db.ObjectId
+  nextMatch         Match?   @relation("matchHistory", fields: [nextMatchId], references: [id])
+  previousMatches   Match[]   @relation("matchHistory")
 }
 
 model Tournament {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  name      String
-  owner     User     @relation(fields: [ownerId], references: [id], name: "ownedTournaments")
-  ownerId   String   @db.ObjectId
-  teams     Team[]   @relation(fields: [teamsIds])
-  teamsIds  String[] @db.Array(ObjectId)
+  id      String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name    String
+  owner   User     @relation(fields: [ownerId], references: [id], name: "ownedTournaments")
+  ownerId String   @db.ObjectId
+  teams   Team[]   @relation(fields: [teamIds])
+  teamIds String[] @db.Array(ObjectId)
+  matches Match[]  @relation(name: "tournamentMatches")
+}
+
+enum MatchType {
+  QUARTER
+  SEMI
+  FINAL
 }

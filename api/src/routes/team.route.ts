@@ -7,9 +7,9 @@ import { authorizationMiddleware } from '../utils/authorizationMiddleware';
 
 const router = Router();
 
-router.post('/', async (req: CustomRequest, res) => {
+router.post('/', authorizationMiddleware, async (req: CustomRequest, res) => {
     try {
-        const team = await createTeam(req.body);
+        const team = await createTeam(req.user.id, req.body);
     
         res.json(team);
     }
@@ -19,7 +19,7 @@ router.post('/', async (req: CustomRequest, res) => {
     }
 });
 
-router.get('/',authorizationMiddleware, async (req: CustomRequest, res) => {
+router.get('/', authorizationMiddleware, async (req: CustomRequest, res) => {
     try {
         const teams = await getTeams();
 

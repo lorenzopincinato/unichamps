@@ -7,7 +7,7 @@ import { authorizationMiddleware } from '../utils/authorizationMiddleware';
 
 const router = Router();
 
-router.post('/', async (req: CustomRequest, res) => {
+router.post('/', authorizationMiddleware, async (req: CustomRequest, res) => {
     try {
         const tournament = await createTournament(req.user.id, req.body);
     
@@ -19,7 +19,7 @@ router.post('/', async (req: CustomRequest, res) => {
     }
 });
 
-router.get('/',authorizationMiddleware, async (req: CustomRequest, res) => {
+router.get('/', authorizationMiddleware, async (req: CustomRequest, res) => {
     try {
         const tournaments = await getTournaments();
 
