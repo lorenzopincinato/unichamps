@@ -8,7 +8,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Stack,
 } from '@chakra-ui/react';
 
 import ActionBar from 'src/components/ActionBar/ActionBar.component';
@@ -70,10 +69,8 @@ const CreateTournament: FC = () => {
                 onChange={handleNameChange}
               />
             </FormControl>
-            <Heading size="sm" mt="4" fontWeight="semibold">
-              Times (selecione 8):
-            </Heading>
-            <Stack>
+            <FormControl mt={4}>
+              <FormLabel htmlFor="name">Times (selecione 8):</FormLabel>
               {teams?.map(team => (
                 <Checkbox
                   key={team.id}
@@ -93,7 +90,7 @@ const CreateTournament: FC = () => {
                   {team.name}
                 </Checkbox>
               ))}
-            </Stack>
+            </FormControl>
             <Button
               mt={4}
               w="100%"
