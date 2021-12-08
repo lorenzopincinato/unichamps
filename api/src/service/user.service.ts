@@ -24,3 +24,9 @@ export const getUser = async (userId: string) => {
 
     return { ...user, password: undefined };
 };
+
+export const getUsers = async () => { 
+    const users = await prismaClient.user.findMany();
+    
+    return users;
+};

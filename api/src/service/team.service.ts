@@ -12,8 +12,7 @@ export const createTeam = async (ownerId: string, teamData: Team) => {
     return team;
 };
 
-export const getTeam = async (teamId: string) => { 
-    console.log(teamId)
+export const getTeam = async (teamId: string) => {     
     const team = await prismaClient.team.findFirst({
         where: {
             id: teamId

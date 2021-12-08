@@ -9,6 +9,7 @@ import HomeView from './views/home/Home.view';
 import LoginView from './views/login/Login.view';
 import MatchDetails from './views/matches/MatchDetails.view';
 import RegisterView from './views/register/Register.view';
+import CreateTeam from './views/teams/CreateTeam.view';
 import TeamDetails from './views/teams/TeamDetails.view';
 import TeamsList from './views/teams/TeamsList.view';
 import CreateTournament from './views/tournaments/CreateTournament.view';
@@ -37,6 +38,10 @@ const Routes: FC = () => {
 
         <PrivateRoute exact path="/teams/:id">
           <TeamDetails />
+        </PrivateRoute>
+
+        <PrivateRoute exact path="/createTeam">
+          <CreateTeam />
         </PrivateRoute>
 
         <PrivateRoute exact path="/tournaments">
