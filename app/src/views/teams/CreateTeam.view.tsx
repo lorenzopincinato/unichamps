@@ -17,14 +17,14 @@ const CreateTeam: FC = () => {
   const {
     name,
     players,
-    //selectedPlayersIds,
+    selectedPlayersIds,
 
     isValid,
     isLoading,
     setName,
     error,
     loadPlayers,
-    //setSelectedPlayersIds,
+    setSelectedPlayersIds,
     createTeam,
   } = useCreateTeam();
 
@@ -36,19 +36,22 @@ const CreateTeam: FC = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setName(e.target.value);
     },
-    []
+    [setName]
   );
 
   const handlePlayerChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(e.target.value);
       if (e.target.checked) {
-        //push to selectedPlayersIds
+        const selectedPlayersIdsCopy = [...selectedPlayersIds];
+        selectedPlayersIdsCopy.push(e.target.value);
+        setSelectedPlayersIds(selectedPlayersIdsCopy);
       } else {
-        //remove of selectedPlayersIds
+        setSelectedPlayersIds(
+          selectedPlayersIds.filter(id => id !== e.target.value)
+        );
       }
     },
-    []
+    [selectedPlayersIds, setSelectedPlayersIds]
   );
 
   const handleSubmit = useCallback(
@@ -56,7 +59,7 @@ const CreateTeam: FC = () => {
       e.preventDefault();
       createTeam();
     },
-    [createTeam]
+    [createTeam, selectedPlayersIds, name]
   );
 
   return (
