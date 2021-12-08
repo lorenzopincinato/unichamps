@@ -14,7 +14,9 @@ const useMatches = () => {
     try {
       const response = await api.get(`/matches`);
 
-      setMatches(response.data);
+      const matches = response.data as Match[];
+
+      setMatches(matches.filter(match => !!match.winnerId));
     } catch (error) {
       setError('Erro ao buscar jogos, tente mais tarde');
     }
