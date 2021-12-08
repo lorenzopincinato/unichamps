@@ -11,6 +11,7 @@ import MatchDetails from './views/matches/MatchDetails.view';
 import RegisterView from './views/register/Register.view';
 import TeamDetails from './views/teams/TeamDetails.view';
 import TeamsList from './views/teams/TeamsList.view';
+import CreateTournament from './views/tournaments/CreateTournament.view';
 import TournamentDetails from './views/tournaments/TournamentDetails.view';
 import Tournaments from './views/tournaments/Tournaments.view';
 
@@ -40,6 +41,10 @@ const Routes: FC = () => {
 
         <PrivateRoute exact path="/tournaments">
           <Tournaments />
+        </PrivateRoute>
+
+        <PrivateRoute exact path="/tournaments/new">
+          <CreateTournament />
         </PrivateRoute>
 
         <PrivateRoute exact path="/tournaments/:id">
