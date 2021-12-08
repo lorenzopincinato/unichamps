@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 
 import api from 'src/io/api';
-import { getToken } from 'src/io/localStorage';
 
 interface Team {
   id: string;
@@ -17,14 +16,7 @@ const useTeamsList = () => {
     setIsLoading(true);
 
     try {
-      const token = getToken();
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-
-      const response = await api.get('/teams', {
-        headers: headers,
-      });
+      const response = await api.get('/teams');
 
       setTeams(response.data);
     } catch (error) {

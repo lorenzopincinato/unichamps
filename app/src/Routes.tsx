@@ -10,6 +10,8 @@ import LoginView from './views/login/Login.view';
 import RegisterView from './views/register/Register.view';
 import TeamDetails from './views/teams/TeamDetails.view';
 import TeamsList from './views/teams/TeamsList.view';
+import TournamentDetails from './views/tournaments/TournamentDetails.view';
+import Tournaments from './views/tournaments/Tournaments.view';
 
 const Routes: FC = () => {
   return (
@@ -33,6 +35,14 @@ const Routes: FC = () => {
 
         <PrivateRoute exact path="/teamDetails">
           <TeamDetails />
+        </PrivateRoute>
+
+        <PrivateRoute exact path="/tournaments">
+          <Tournaments />
+        </PrivateRoute>
+
+        <PrivateRoute exact path="/tournaments/:id">
+          <TournamentDetails />
         </PrivateRoute>
 
         <Route component={Redirect404View} />

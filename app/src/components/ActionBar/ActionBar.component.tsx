@@ -15,8 +15,8 @@ import NavLink from './NavLink.component';
 import useLogin from 'src/hooks/login.hook';
 
 const Links = [
-  { label: 'Campeonatos', route: 'tournaments' },
-  { label: 'Times', route: 'teams' },
+  { label: 'Campeonatos', route: '/tournaments' },
+  { label: 'Times', route: '/teams' },
 ];
 
 type ActionBarProps = {
