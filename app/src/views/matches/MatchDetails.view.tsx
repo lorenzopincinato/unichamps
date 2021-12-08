@@ -97,6 +97,9 @@ const MatchDetails: FC = () => {
                           placeholder="0"
                           value={homeTeamGoals}
                           onChange={handleHomeTeamGoalsChange}
+                          width="3.5rem"
+                          textAlign="center"
+                          mr="3"
                         />
                       )}
                     <Heading fontSize="xl">X</Heading>
@@ -113,6 +116,9 @@ const MatchDetails: FC = () => {
                           placeholder="0"
                           value={visitingTeamGoals}
                           onChange={handleVisitingTeamGoals}
+                          width="3.5rem"
+                          textAlign="center"
+                          ml="2"
                         />
                       )}
                   </Flex>
@@ -137,6 +143,8 @@ const MatchDetails: FC = () => {
                     isDisabled={
                       !homeTeamGoals ||
                       !visitingTeamGoals ||
+                      homeTeamGoals < 0 ||
+                      visitingTeamGoals < 0 ||
                       homeTeamGoals === visitingTeamGoals
                     }
                     type="submit"
