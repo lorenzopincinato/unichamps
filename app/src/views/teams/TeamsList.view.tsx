@@ -4,8 +4,8 @@ import { Container, Heading, List, Button } from '@chakra-ui/react';
 import { MdAdd } from 'react-icons/md';
 
 import useTeamsList from 'src/hooks/teamsList.hook';
-import TeamItem from 'src/views/teams/TeamItem.component';
 import ActionBar from 'src/components/ActionBar/ActionBar.component';
+import TeamItem from 'src/components/TeamItem.component';
 
 const TeamsList: FC = () => {
   const { teams, showTeamsList } = useTeamsList();
