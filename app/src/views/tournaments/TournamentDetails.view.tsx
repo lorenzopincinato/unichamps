@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 
-import { Container, Heading } from '@chakra-ui/react';
+import { Container, Heading, Text } from '@chakra-ui/react';
 
 import ActionBar from 'src/components/ActionBar/ActionBar.component';
 import useTournamentDetails from 'src/hooks/tournamentDetails.hook';
@@ -22,6 +22,12 @@ const TournamentDetails: FC = () => {
           <>
             <Container centerContent>
               <Heading color={'#276749'}>{tournament.name}</Heading>
+            </Container>
+            <Container>
+              <Heading size="md" color={'#276749'} mt="4">
+                Dono
+              </Heading>
+              <Text>{tournament.owner.name}</Text>
             </Container>
             <Container>
               <Heading size="lg" color={'#276749'} mt="4">

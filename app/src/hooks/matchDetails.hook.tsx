@@ -6,11 +6,14 @@ import Match from 'src/models/Match';
 const useMatchDetails = () => {
   const [match, setMatch] = useState<Match>();
   const [isLoading, setIsLoading] = useState(false);
+  const [updateMatchIsLoading, setUpdateMatchIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [homeTeamGoals, setHomeTeamGoals] = useState<number>();
+  const [visitingTeamGoals, setVisitingTeamGoals] = useState<number>();
 
   const { id } = useParams<Record<string, string | undefined>>();
 
-  const loadTournamentDetails = useCallback(async () => {
+  const loadMatchDetails = useCallback(async () => {
     setIsLoading(true);
     setError('');
 
@@ -41,12 +44,36 @@ const useMatchDetails = () => {
     setIsLoading(false);
   }, []);
 
+  const updateMatch = useCallback(async () => {
+    setUpdateMatchIsLoading(true);
+
+    try {
+      const response = await api.put(`/matches/${match?.id}`, {
+        homeTeamGoals: homeTeamGoals,
+        visitingTeamGoals: visitingTeamGoals,
+      });
+
+      if (response.status !== 200) throw new Error();
+
+      window.location.href = `/tournaments/${match?.tournament.id}`;
+    } catch (error) {
+      setError('Erro ao atualizar jogo, tente novamente mais tarde');
+    }
+    setUpdateMatchIsLoading(false);
+  }, [homeTeamGoals, visitingTeamGoals, setUpdateMatchIsLoading]);
+
   return {
     match,
     isLoading,
     error,
+    homeTeamGoals,
+    visitingTeamGoals,
+    updateMatchIsLoading,
 
-    loadTournamentDetails,
+    setHomeTeamGoals,
+    setVisitingTeamGoals,
+    loadMatchDetails,
+    updateMatch,
   };
 };
 
