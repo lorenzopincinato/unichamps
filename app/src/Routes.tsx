@@ -33,7 +33,7 @@ const Routes: FC = () => {
           <TeamsList />
         </PrivateRoute>
 
-        <PrivateRoute exact path="/teamDetails">
+        <PrivateRoute exact path="/teams/:id">
           <TeamDetails />
         </PrivateRoute>
 

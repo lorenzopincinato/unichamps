@@ -31,8 +31,8 @@ router.get('/', authorizationMiddleware, async (req: CustomRequest, res) => {
 });
 
 router.get('/:id', authorizationMiddleware, async (req: CustomRequest, res) => {
-    try {
-        const team = await getTeam(req.route.id);
+    try {        
+        const team = await getTeam(req.params.id);
 
         res.json(team);
     }

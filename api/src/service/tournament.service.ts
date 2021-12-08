@@ -94,7 +94,7 @@ export const getTournament = async (tournamentId: string) => {
         }
     });
 
-    return tournament;
+  return tournament;
 };
 
 export const getTournaments = async () => { 
