@@ -32,7 +32,7 @@ router.get('/', authorizationMiddleware, async (req: CustomRequest, res) => {
 
 router.get('/:id', authorizationMiddleware, async (req: CustomRequest, res) => {
     try {
-        const tournament = await getTournament(req.route.id);
+        const tournament = await getTournament(req.params.id);
 
         res.json(tournament);
     }

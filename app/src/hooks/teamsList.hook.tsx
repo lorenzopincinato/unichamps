@@ -14,6 +14,7 @@ const useTeamsList = () => {
 
   const showTeamsList = useCallback(async () => {
     setIsLoading(true);
+    setError('');
 
     try {
       const response = await api.get('/teams');
@@ -31,9 +32,6 @@ const useTeamsList = () => {
     isLoading,
     error,
 
-    setTeams,
-    setIsLoading,
-    setError,
     showTeamsList,
   };
 };

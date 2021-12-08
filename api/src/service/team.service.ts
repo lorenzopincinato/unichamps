@@ -3,7 +3,7 @@ import { Team } from '@prisma/client';
 import { prismaClient } from '../utils/prisma';
 
 export const createTeam = async (ownerId: string, teamData: Team) => {           
-    const data = {...teamData, ownerId: ownerId}; // FIXME: ownerId: pegar o id que está vindo
+    const data = {...teamData, ownerId};
 
     const team = await prismaClient.team.create({
         data: data
@@ -13,6 +13,7 @@ export const createTeam = async (ownerId: string, teamData: Team) => {
 };
 
 export const getTeam = async (teamId: string) => { 
+    console.log(teamId)
     const team = await prismaClient.team.findFirst({
         where: {
             id: teamId

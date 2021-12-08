@@ -1,14 +1,13 @@
+import { FC } from '@chakra-ui/icons/node_modules/@types/react';
 import { Flex, Text } from '@chakra-ui/layout';
 import { Link } from 'react-router-dom';
 
 interface TeamItemProps {
-  team: {
-    id: string;
-    name: string;
-  };
+  id: string;
+  name: string;
 }
 
-export function TeamItem(props: TeamItemProps) {
+const TeamItem: FC<TeamItemProps> = ({ id, name }) => {
   return (
     <Flex
       justifyContent="center"
@@ -18,9 +17,11 @@ export function TeamItem(props: TeamItemProps) {
       mt="2"
       padding="1"
     >
-      <Link to="/teamDetails">
-        <Text>{props.team.name}</Text>
+      <Link to={`/teams/${id}`}>
+        <Text>{name}</Text>
       </Link>
     </Flex>
   );
-}
+};
+
+export default TeamItem;

@@ -2,12 +2,12 @@ import { FC } from '@chakra-ui/icons/node_modules/@types/react';
 import { Flex, Text } from '@chakra-ui/layout';
 import { Link } from 'react-router-dom';
 
-interface TeamItemProps {
+interface TournamentItemProps {
   id: string;
   name: string;
 }
 
-const TournamentItem: FC<TeamItemProps> = ({ id, name }) => {
+const TournamentItem: FC<TournamentItemProps> = ({ id, name }) => {
   return (
     <Flex
       justifyContent="center"

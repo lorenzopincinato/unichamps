@@ -83,17 +83,18 @@ const createManyMatches = async (matchesData: {tournamentId: string, type: Match
 }
 
 export const getTournament = async (tournamentId: string) => { 
-    const tournament = await prismaClient.tournament.findFirst({
-        where: {
-            id: tournamentId
-        },
-        include: {
-            teams: true,
-            owner: true
-        }
-    });
+  console.log(tournamentId)
+  const tournament = await prismaClient.tournament.findFirst({
+      where: {
+          id: tournamentId
+      },
+      include: {
+          teams: true,
+          owner: true
+      }
+  });
 
-    return tournament;
+  return tournament;
 };
 
 export const getTournaments = async () => { 

@@ -4,37 +4,30 @@ import { Container, Heading, List, Button } from '@chakra-ui/react';
 import { MdAdd } from 'react-icons/md';
 
 import useTeamsList from 'src/hooks/teamsList.hook';
-import { TeamItem } from 'src/components/TeamItem.component';
+import TeamItem from 'src/views/teams/TeamItem.component';
 import ActionBar from 'src/components/ActionBar/ActionBar.component';
 
 const TeamsList: FC = () => {
-  const {
-    error,
-    teams,
-
-    showTeamsList,
-  } = useTeamsList();
+  const { teams, showTeamsList } = useTeamsList();
 
   useEffect(() => {
     showTeamsList();
   }, []);
 
   const handleCreateTeam = useCallback(() => {
-    window.location.href = '/'; //FIXME
+    window.location.href = '/createTeam'; //FIXME
   }, []);
 
   return (
     <ActionBar>
-      <Container mt={20}>
+      <Container>
         <Container centerContent>
-          <Heading mt={3} color={'#276749'}>
-            Times
-          </Heading>
+          <Heading color={'#276749'}>Times</Heading>
         </Container>
 
         <List spacing={3}>
           {teams.map(team => {
-            return <TeamItem key={team.id} team={team} />;
+            return <TeamItem key={team.id} name={team.name} id={team.id} />;
           })}
         </List>
 
@@ -44,12 +37,6 @@ const TeamsList: FC = () => {
           mt={4}
           onClick={handleCreateTeam}
         ></Button>
-
-        {error && (
-          <Container mt={4} centerContent>
-            {error ? error : 'Erro'}
-          </Container>
-        )}
       </Container>
     </ActionBar>
   );
