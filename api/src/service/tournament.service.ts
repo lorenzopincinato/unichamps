@@ -89,7 +89,8 @@ export const getTournament = async (tournamentId: string) => {
         },
         include: {
             teams: true,
-            owner: true
+            owner: true,
+            matches: true,
         }
     });
 
@@ -100,7 +101,8 @@ export const getTournaments = async () => {
     const teams = await prismaClient.tournament.findMany({
         include: {
             teams: true,
-            owner: true
+            owner: true,
+            matches: true,
         }
     });
     
