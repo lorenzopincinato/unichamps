@@ -51,7 +51,7 @@ const useCreateTeam = () => {
     }
 
     setIsLoading(false);
-  }, [name]);
+  }, [name, selectedPlayersIds]);
 
   return {
     name,
