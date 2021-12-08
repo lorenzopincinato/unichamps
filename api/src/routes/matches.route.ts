@@ -1,12 +1,23 @@
 import { Router } from 'express';
 
-import { getMatch, updateMatch } from '../service/matches.service';
+import { getMatches, getMatch, updateMatch } from '../service/matches.service';
 
 import { CustomRequest } from '../types/CustomRequest';
 
 import { authorizationMiddleware } from '../utils/authorizationMiddleware';
 
 const router = Router();
+
+router.get('/', async (req: CustomRequest, res) => {
+    try {
+        const matches = await getMatches();
+
+        res.json(matches);
+    }
+    catch (error) {
+        res.status(500).send(error);
+    }
+});
 
 router.get('/:id', authorizationMiddleware, async (req: CustomRequest, res) => {
     try {

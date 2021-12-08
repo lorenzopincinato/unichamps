@@ -2,6 +2,19 @@ import { Match } from '@prisma/client';
 
 import { prismaClient } from '../utils/prisma';
 
+export const getMatches = async () => { 
+    const matches = await prismaClient.match.findMany({
+        include: {
+            tournament: true,
+            homeTeam: true,
+            visitingTeam: true,
+            winner: true,
+        }
+    });
+
+    return matches;
+};
+
 export const getMatch = async (matchId: string) => { 
     const match = await prismaClient.match.findFirst({
         where: {

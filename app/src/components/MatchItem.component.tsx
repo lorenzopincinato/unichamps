@@ -4,7 +4,11 @@ import Match from 'src/models/Match';
 
 import { matchTypeToText } from 'src/utils/matchType';
 
-const MatchItem: FC<Match> = ({
+type MatchItemProps = {
+  showTournament?: boolean;
+} & Match;
+
+const MatchItem: FC<MatchItemProps> = ({
   id,
   homeTeam,
   visitingTeam,
@@ -12,6 +16,8 @@ const MatchItem: FC<Match> = ({
   visitingTeamGoals,
   type,
   winnerId,
+  showTournament = true,
+  tournament,
 }) => {
   return (
     <LinkBox
@@ -22,7 +28,9 @@ const MatchItem: FC<Match> = ({
       padding="4"
     >
       <LinkOverlay href={`/matches/${id}`} fontSize="md">
-        {matchTypeToText(type)}
+        {showTournament
+          ? `${matchTypeToText(type)} - ${tournament.name}`
+          : matchTypeToText(type)}
       </LinkOverlay>
       <Flex justifyContent="space-between" alignItems="end" width="100%" mt="1">
         <Text
