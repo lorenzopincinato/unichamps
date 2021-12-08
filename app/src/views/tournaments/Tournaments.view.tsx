@@ -15,7 +15,7 @@ const Tournaments: FC = () => {
   }, []);
 
   const handleCreateTournament = useCallback(() => {
-    window.location.href = '/createTournament';
+    window.location.href = '/tournaments/new';
   }, []);
 
   return (

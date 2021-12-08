@@ -7,10 +7,12 @@ import PublicRoute from './components/PublicRoute.component';
 import Redirect404View from './views/404/Redirect404.view';
 import HomeView from './views/home/Home.view';
 import LoginView from './views/login/Login.view';
+import MatchDetails from './views/matches/MatchDetails.view';
 import RegisterView from './views/register/Register.view';
 import CreateTeam from './views/teams/CreateTeam.view';
 import TeamDetails from './views/teams/TeamDetails.view';
 import TeamsList from './views/teams/TeamsList.view';
+import CreateTournament from './views/tournaments/CreateTournament.view';
 import TournamentDetails from './views/tournaments/TournamentDetails.view';
 import Tournaments from './views/tournaments/Tournaments.view';
 
@@ -46,8 +48,16 @@ const Routes: FC = () => {
           <Tournaments />
         </PrivateRoute>
 
+        <PrivateRoute exact path="/tournaments/new">
+          <CreateTournament />
+        </PrivateRoute>
+
         <PrivateRoute exact path="/tournaments/:id">
           <TournamentDetails />
+        </PrivateRoute>
+
+        <PrivateRoute exact path="/matches/:id">
+          <MatchDetails />
         </PrivateRoute>
 
         <Route component={Redirect404View} />
