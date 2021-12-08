@@ -4,6 +4,8 @@ import { Container, Heading } from '@chakra-ui/react';
 
 import ActionBar from 'src/components/ActionBar/ActionBar.component';
 import useTournamentDetails from 'src/hooks/tournamentDetails.hook';
+import MatchItem from 'src/components/MatchItem.component';
+import { TeamItem } from 'src/components/TeamItem.component';
 
 const TournamentDetails: FC = () => {
   const { tournament, isLoading, loadTournamentDetails } =
@@ -17,9 +19,27 @@ const TournamentDetails: FC = () => {
     <ActionBar>
       <Container>
         {!isLoading && tournament && (
-          <Container centerContent>
-            <Heading color={'#276749'}>{tournament.name}</Heading>
-          </Container>
+          <>
+            <Container centerContent>
+              <Heading color={'#276749'}>{tournament.name}</Heading>
+            </Container>
+            <Container>
+              <Heading size="lg" color={'#276749'} mt="4">
+                Jogos
+              </Heading>
+              {tournament?.matches.map(match => (
+                <MatchItem key={match.id} {...match} />
+              ))}
+            </Container>
+            <Container>
+              <Heading size="lg" color={'#276749'} mt="4">
+                Times
+              </Heading>
+              {tournament?.teams.map(team => (
+                <TeamItem key={team.id} team={team} />
+              ))}
+            </Container>
+          </>
         )}
       </Container>
     </ActionBar>
