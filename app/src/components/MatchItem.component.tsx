@@ -29,7 +29,7 @@ const MatchItem: FC<MatchItemProps> = ({
     >
       <LinkOverlay href={`/matches/${id}`} fontSize="md">
         {showTournament
-          ? `${matchTypeToText(type)} - ${tournament.name}`
+          ? `${matchTypeToText(type)} - ${tournament?.name}`
           : matchTypeToText(type)}
       </LinkOverlay>
       <Flex justifyContent="space-between" alignItems="end" width="100%" mt="1">

@@ -34,7 +34,7 @@ const TournamentDetails: FC = () => {
                 Jogos
               </Heading>
               {tournament?.matches.map(match => (
-                <MatchItem key={match.id} {...match} />
+                <MatchItem key={match.id} {...match} showTournament={false} />
               ))}
             </Container>
             <Container>
