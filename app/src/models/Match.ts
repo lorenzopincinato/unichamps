@@ -1,4 +1,5 @@
 import Team from './Team';
+import Tournament from './Tournament';
 
 export default interface Match {
   id: string;
@@ -10,4 +11,5 @@ export default interface Match {
   visitingTeamGoals?: number;
   winnerId?: string;
   type: 'FINAL' | 'SEMI' | 'QUARTER';
+  tournament: Tournament;
 }
