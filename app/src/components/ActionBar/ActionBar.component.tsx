@@ -58,7 +58,7 @@ const ActionBar: FC<ActionBarProps> = ({ children }) => {
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
-            <Button color={'white'} size={'sm'} mr={4} onClick={handleLogout}>
+            <Button color={'green'} size={'sm'} mr={4} onClick={handleLogout}>
               Logout
             </Button>
           </Flex>
