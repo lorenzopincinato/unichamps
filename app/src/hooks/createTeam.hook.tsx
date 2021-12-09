@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
 import api from 'src/io/api';
-import { getToken } from 'src/io/localStorage';
 import Player from 'src/models/Player';
 
 const useCreateTeam = () => {
@@ -35,7 +34,6 @@ const useCreateTeam = () => {
     try {
       const data = {
         name: name,
-        ownerId: getToken(),
         playersId: selectedPlayersIds,
       };
       const response = await api.post('/teams', data);

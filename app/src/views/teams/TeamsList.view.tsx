@@ -15,7 +15,7 @@ const TeamsList: FC = () => {
   }, []);
 
   const handleCreateTeam = useCallback(() => {
-    window.location.href = '/createTeam'; //FIXME
+    window.location.href = '/createTeam';
   }, []);
 
   return (

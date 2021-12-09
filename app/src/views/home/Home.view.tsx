@@ -15,7 +15,7 @@ const HomeView: FC = () => {
 
   return (
     <ActionBar>
-      <Container>
+      <Container maxWidth="2xl">
         <Container centerContent>
           <Heading color={'#276749'}>Últimos Jogos</Heading>
         </Container>

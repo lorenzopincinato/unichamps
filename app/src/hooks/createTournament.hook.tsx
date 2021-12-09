@@ -67,7 +67,7 @@ const useCreateTournament = () => {
     }
 
     setIsLoading(false);
-  }, [name]);
+  }, [name, selectedTeams]);
 
   return {
     name,

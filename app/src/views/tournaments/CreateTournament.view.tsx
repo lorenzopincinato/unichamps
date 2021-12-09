@@ -73,6 +73,7 @@ const CreateTournament: FC = () => {
               <FormLabel htmlFor="name">Times (selecione 8):</FormLabel>
               {teams?.map(team => (
                 <Checkbox
+                  mr="7"
                   key={team.id}
                   value={team.id}
                   onChange={handleToggleTeam}
@@ -103,6 +104,7 @@ const CreateTournament: FC = () => {
                 name === ''
               }
               type="submit"
+              onSubmit={handleSubmit}
             >
               Criar Campeonato
             </Button>

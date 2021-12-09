@@ -44,7 +44,7 @@ const ActionBar: FC<ActionBarProps> = ({ children }) => {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box color="white">UniChamps</Box>
+            <NavLink route={'/'}>UniChamps</NavLink>
             <HStack
               as={'nav'}
               spacing={4}

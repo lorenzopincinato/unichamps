@@ -32,9 +32,10 @@ const MatchItem: FC<MatchItemProps> = ({
           ? `${matchTypeToText(type)} - ${tournament?.name}`
           : matchTypeToText(type)}
       </LinkOverlay>
-      <Flex justifyContent="space-between" alignItems="end" width="100%" mt="1">
+      <Flex alignItems="end" width="100%" mt="1">
         <Text
           fontSize="lg"
+          width="40%"
           fontWeight={
             homeTeam?.id !== undefined && homeTeam?.id === winnerId
               ? 'bold'
@@ -43,7 +44,7 @@ const MatchItem: FC<MatchItemProps> = ({
         >
           {homeTeam?.name ?? 'Não Definido'}
         </Text>
-        <Flex alignItems="end">
+        <Flex justifyContent="center" alignItems="end" width="20%">
           {homeTeamGoals !== undefined && (
             <Heading size="lg" mr="2">
               {homeTeamGoals}
@@ -57,7 +58,9 @@ const MatchItem: FC<MatchItemProps> = ({
           )}
         </Flex>
         <Text
+          textAlign="end"
           fontSize="lg"
+          width="40%"
           fontWeight={
             visitingTeam?.id !== undefined && visitingTeam?.id === winnerId
               ? 'bold'

@@ -34,14 +34,22 @@ const MatchDetails: FC = () => {
 
   const handleHomeTeamGoalsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setHomeTeamGoals(parseInt(e.target.value));
+      if (e.target.value === '') {
+        setHomeTeamGoals(0);
+      } else {
+        setHomeTeamGoals(parseInt(e.target.value));
+      }
     },
     [setHomeTeamGoals]
   );
 
   const handleVisitingTeamGoals = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setVisitingTeamGoals(parseInt(e.target.value));
+      if (e.target.value === '') {
+        setVisitingTeamGoals(0);
+      } else {
+        setVisitingTeamGoals(parseInt(e.target.value));
+      }
     },
     [setVisitingTeamGoals]
   );
@@ -56,15 +64,19 @@ const MatchDetails: FC = () => {
 
   return (
     <ActionBar>
-      <Container maxWidth="xl">
+      <Container maxWidth="2xl">
         {!isLoading && match && (
           <>
-            <Container centerContent maxWidth="xl">
-              <Heading color={'#276749'} size="lg">{`${matchTypeToText(
-                match.type
-              )} - ${match.tournament.name}`}</Heading>
+            <Container centerContent maxWidth="2xl">
+              <Heading color={'#276749'} size="lg">
+                <a
+                  href={`/tournaments/${match.tournament.id}`}
+                >{`${matchTypeToText(match.type)} - ${
+                  match.tournament.name
+                }`}</a>
+              </Heading>
             </Container>
-            <Container mt="4">
+            <Container maxWidth="2xl" mt="4">
               <form onSubmit={handleSubmit}>
                 <Flex
                   justifyContent="space-between"
@@ -74,6 +86,7 @@ const MatchDetails: FC = () => {
                 >
                   <Text
                     fontSize="xl"
+                    width="35%"
                     fontWeight={
                       match.homeTeam?.id !== undefined &&
                       match.homeTeam?.id === match.winnerId
@@ -83,7 +96,7 @@ const MatchDetails: FC = () => {
                   >
                     {match.homeTeam?.name ?? 'Não Definido'}
                   </Text>
-                  <Flex alignItems="end">
+                  <Flex alignItems="end" width="30%" justifyContent="center">
                     {match.homeTeamGoals !== undefined && (
                       <Heading size="xl" mr="2">
                         {match.homeTeamGoals}
@@ -124,6 +137,8 @@ const MatchDetails: FC = () => {
                   </Flex>
                   <Text
                     fontSize="xl"
+                    textAlign="end"
+                    width="35%"
                     fontWeight={
                       match.visitingTeam?.id !== undefined &&
                       match.visitingTeam?.id === match.winnerId
@@ -141,8 +156,10 @@ const MatchDetails: FC = () => {
                     colorScheme="green"
                     isLoading={updateMatchIsLoading}
                     isDisabled={
-                      !homeTeamGoals ||
-                      !visitingTeamGoals ||
+                      homeTeamGoals === undefined ||
+                      visitingTeamGoals === undefined ||
+                      homeTeamGoals === null ||
+                      visitingTeamGoals === null ||
                       homeTeamGoals < 0 ||
                       visitingTeamGoals < 0 ||
                       homeTeamGoals === visitingTeamGoals
@@ -154,20 +171,23 @@ const MatchDetails: FC = () => {
                 )}
               </form>
             </Container>
-            <Container>
-              <Heading size="lg" color={'#276749'} mt="4">
-                Escalação
-              </Heading>
+            <Container maxWidth="2xl">
+              <Container centerContent>
+                <Heading size="lg" color={'#276749'} mt="8">
+                  Escalação
+                </Heading>
+              </Container>
+
               <Flex justifyContent="space-between">
                 <Box mt="2">
-                  <Text fontWeight="bold">{match.homeTeam?.owner.name}</Text>
+                  <Text fontWeight="bold">{`Dono: ${match.homeTeam?.owner.name}`}</Text>
                   {match.homeTeam?.players.map(player => (
                     <Text key={player.id}>{player.name}</Text>
                   ))}
                 </Box>
                 <Box mt="2">
                   <Text fontWeight="bold">
-                    {match.visitingTeam?.owner.name}
+                    {`Dono: ${match.visitingTeam?.owner.name}`}
                   </Text>
                   {match.visitingTeam?.players.map(player => (
                     <Text key={player.id}>{player.name}</Text>

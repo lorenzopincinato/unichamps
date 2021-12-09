@@ -17,19 +17,19 @@ const TournamentDetails: FC = () => {
 
   return (
     <ActionBar>
-      <Container>
+      <Container maxWidth="2xl">
         {!isLoading && tournament && (
           <>
             <Container centerContent>
               <Heading color={'#276749'}>{tournament.name}</Heading>
             </Container>
-            <Container>
+            <Container maxWidth="2xl">
               <Heading size="md" color={'#276749'} mt="4">
                 Dono
               </Heading>
               <Text>{tournament.owner.name}</Text>
             </Container>
-            <Container>
+            <Container maxWidth="2xl">
               <Heading size="lg" color={'#276749'} mt="4">
                 Jogos
               </Heading>
@@ -37,7 +37,7 @@ const TournamentDetails: FC = () => {
                 <MatchItem key={match.id} {...match} showTournament={false} />
               ))}
             </Container>
-            <Container>
+            <Container maxWidth="2xl">
               <Heading size="lg" color={'#276749'} mt="4">
                 Times
               </Heading>
